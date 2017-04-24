@@ -1,0 +1,24 @@
+#########################################
+###### Welcome in HerozAPI plugin ######
+#########################################
+Prefix: '&8| &eHerozAPI &8| '
+Main-Server: false
+OpPassword: "#HerozPvPTeam4;"
+
+#========================================
+Tab-Header: 
+- "&8&m---------------"
+- "&eWelcome in Our Server"
+- "&8&m---------------"
+
+Tab-Footer: 
+- "&8&m---------------"
+- "&aEnjoy"
+- "&8&m---------------"
+
+Title: "&eWelcome in HerozPvP"
+SubTitle: " &eEnjoy "
+#========================================
+BlockedCommands:
+- help
+- ?

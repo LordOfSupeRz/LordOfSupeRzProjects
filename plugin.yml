@@ -1,0 +1,10 @@
+name: HerozAPI
+main: heroz.api.main.Main
+version: 1.0
+author: LordOfSupeRz
+
+commands:
+ login:
+ permission:
+ money:
+ nms:
