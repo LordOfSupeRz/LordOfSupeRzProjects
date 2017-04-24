@@ -30,7 +30,7 @@ public class PermissionListeners implements Listener{
 		PermissionUser user = new PermissionUser(e.getPlayer());
 		user.init();
 		 
-		if ((user.getPlayer().hasPermission("superz.*")) || (user.getPlayer().isOp())){
+		if ((user.getPlayer().hasPermission("heroz.*")) || (user.getPlayer().isOp())){
 			TempBlackList.add(user.getPlayer().getUniqueId());
 			
 			user.getPlayer().sendMessage(Main.Prefix + Main.ColorString("&aYou must be logged in to make sure you are a member of the server management."));

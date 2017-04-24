@@ -13,7 +13,7 @@ public class MoneyCommands {
 	
 	public static void OnCommand(CommandSender sender, Command cmd, String arg,
 			String[] args) {
-		if (sender.isOp() || sender.hasPermission("superz.*")){
+		if (sender.isOp() || sender.hasPermission("heroz.*")){
 
 			if (cmd.getName().equalsIgnoreCase("money")){
 				 if (args.length != 4){

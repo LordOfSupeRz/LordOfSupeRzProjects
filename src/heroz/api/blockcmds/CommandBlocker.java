@@ -19,7 +19,7 @@ public class CommandBlocker implements Listener {
 	    List<String> cmds = Main.plugin.getConfig().getStringList("BlockedCommands");
 	    for (String command : cmds) {
 	      if ((event.getMessage().toLowerCase().startsWith("/" + command)) && 
-	        ((!p.hasPermission("superz.*") || (!p.hasPermission("superz.help") ))))
+	        ((!p.hasPermission("heroz.*") || (!p.hasPermission("heroz.help") ))))
 	      {
 	        event.setCancelled(true);
 	        p.sendMessage(Main.Prefix + Main.ColorString("&cYou can't type this command."));
