@@ -4,7 +4,6 @@ import heroz.api.main.Main;
 import heroz.api.mysql.MySQL;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,33 +15,14 @@ public class MoneyManager
 
 public static MySQL MoneyDataBase;
 	
-	public static File MoneyFile = new File("plugins/SupeRzAPI/MoneyManager", "Config.yml");
+	public static File MoneyFile = new File("plugins/HerozAPI/MoneyManager", "Config.yml");
 	public static YamlConfiguration moneyConfiguration = YamlConfiguration.loadConfiguration(MoneyFile);
 
 	 
 	
 	public static void EnableMoneyAPI(){
-		if (!(MoneyFile.exists())){
-			try {
-				MoneyFile.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	
-		if (moneyConfiguration.get("MySQL") == null){
-			moneyConfiguration.set("MySQL.host", "superzpvp.net");
-		moneyConfiguration.set("MySQL.port", "3306");
-		moneyConfiguration.set("MySQL.database", "SuperzAPI");
-		moneyConfiguration.set("MySQL.user", "root");
-		moneyConfiguration.set("MySQL.password", "*******");
-		try {
-			moneyConfiguration.save(MoneyFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		}
+
 
 	 setupMySQL();
 	 

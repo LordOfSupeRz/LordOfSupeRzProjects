@@ -7,7 +7,6 @@ import java.io.File;
 
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,85 +16,18 @@ public class PermissionManager{
 	
 	public static MySQL PermissionDataBase;
 	
-	public static File PermissionFile = new File("plugins/SupeRzAPI/PermissionManager", "Config.yml");
+	public static File PermissionFile = new File("plugins/HerozAPI/PermissionManager", "Config.yml");
 	public static YamlConfiguration permissionConfiguration = YamlConfiguration.loadConfiguration(PermissionFile);
 
-	public static File PermissionUserFile = new File("plugins/SupeRzAPI/PermissionManager", "Users.yml");
+	public static File PermissionUserFile = new File("plugins/HerozAPI/PermissionManager", "Users.yml");
 	public static YamlConfiguration permissionUserConfiguration = YamlConfiguration.loadConfiguration(PermissionUserFile);
 	
-	public static File PermissionGroupFile = new File("plugins/SupeRzAPI/PermissionManager", "Groups.yml");
+	public static File PermissionGroupFile = new File("plugins/HerozAPI/PermissionManager", "Groups.yml");
 	public static YamlConfiguration permissionGroupConfiguration = YamlConfiguration.loadConfiguration(PermissionGroupFile);
 	
 	public static void EnablePermissionAPI(){
-		if (!(PermissionFile.exists())){
-			try {
-				PermissionFile.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		if (!(PermissionGroupFile.exists())){
-			try {
-				PermissionGroupFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (!(PermissionUserFile.exists())){
-			try {
-				PermissionUserFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (permissionConfiguration.get("MySQL") == null){
-		permissionConfiguration.set("MySQL.host", "superzpvp.net");
-		permissionConfiguration.set("MySQL.port", "3306");
-		permissionConfiguration.set("MySQL.database", "SuperzAPI");
-		permissionConfiguration.set("MySQL.user", "root");
-		permissionConfiguration.set("MySQL.password", "*******");
-		try {
-			permissionConfiguration.save(PermissionFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		}
-		if (permissionGroupConfiguration.get("Group") == null){
-			permissionGroupConfiguration.set("Group.Member.Permissions", Arrays.asList("superz.test"));
-			permissionGroupConfiguration.set("Group.Gold.Permissions", Arrays.asList("superz.test"));
-			permissionGroupConfiguration.set("Group.Youtuber.Permissions", Arrays.asList("superz.test"));
-			permissionGroupConfiguration.set("Group.Diamond.Permissions", Arrays.asList("superz.test"));
-			permissionGroupConfiguration.set("Group.Youtuber+.Permissions", Arrays.asList("superz.test"));
-			permissionGroupConfiguration.set("Group.Emerald.Permissions", Arrays.asList("superz.test"));
-			permissionGroupConfiguration.set("Group.Moderator.Permissions", Arrays.asList("superz.test"));
-			permissionGroupConfiguration.set("Group.SrMod.Permissions", Arrays.asList("superz.test"));
-			permissionGroupConfiguration.set("Group.Builder.Permissions", Arrays.asList("superz.test"));
-			permissionGroupConfiguration.set("Group.Admin.Permissions", Arrays.asList("superz.*"));
-			permissionGroupConfiguration.set("Group.Developer.Permissions", Arrays.asList("superz.*"));
-			permissionGroupConfiguration.set("Group.Owner.Permissions", Arrays.asList("superz.*"));
-			
-			permissionGroupConfiguration.set("Group.Member.Format", "&8| &9Memeber &8| &9{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Gold.Format", "&8| &6Gold &8| &6{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Youtuber.Format", "&8| &dYoutuber &8| &d{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Diamond.Format", "&8| &bDiamond &8| &b{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Youtuber+.Format", "&8| &5Youtuber+ &8| &5{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Emerald.Format", "&8| &aEmerald &8| &a{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Moderator.Format", "&8| &cModerator &8| &c{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.SrMod.Format", "&8| &4SrMod &8| &4{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Builder.Format", "&8| &2Builder &8| &2{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Admin.Format", "&8| &4Admin &8| &4{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Developer.Format", "&8| &3Developer &8| &3{PLAYER} &8>> &7");
-			permissionGroupConfiguration.set("Group.Owner.Format", "&8| &eOwner &8| &e{PLAYER} &8>> &7");
-			try {
-				permissionGroupConfiguration.save(PermissionGroupFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
+	
+	
 		
 		
 		Bukkit.getPluginManager().registerEvents(new PermissionListeners(), Main.plugin);

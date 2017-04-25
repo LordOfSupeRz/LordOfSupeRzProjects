@@ -2,11 +2,14 @@ package heroz.api.scoreboard;
 
 import heroz.api.main.Main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Team;
@@ -19,19 +22,27 @@ public class Scoreboard {
 	public String title = "";
 	public org.bukkit.scoreboard.Scoreboard scoreboard;
 	public HashMap<String, Integer> Scores; 
+	public ArrayList<BukkitRunnable> refreshes = new ArrayList<>();
+	public Player p; 
 	
-	public Scoreboard(String title){
-		this.title = title;
+	public Scoreboard(){
 		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 		Scores = new HashMap<String, Integer>();
 	}
 	
+	public void setPlayer(Player p){
+		this.p = p;
+	}
+	public void setTitle(String title){
+		this.title = Main.ColorString(title);
+
+	}
+	
 	
 	public void addScore(String score, Integer i){
-		Scores.put(score, i);
+		Scores.put(Main.ColorString(fixScore(score)), i);
 	}
 
-	@SuppressWarnings("unused")
 	private String fixScore(String text){
 		if (Scores.containsKey(text))
 			text += Main.ColorString("&r");
@@ -54,18 +65,65 @@ public class Scoreboard {
 	          Team team = scoreboard.registerNewTeam("Scores" + Scores.get(score));
                OfflinePlayer player = Bukkit.getOfflinePlayer(score);
 	          
-			 if (score.length() <= 16)
-				 team.addPlayer(player);
+			 if (score.length() > 16){
 				 
               Iterator<String> iterator = Splitter.fixedLength(16).split(score).iterator();
               team.setPrefix(iterator.next());
-              if (score.length() > 32)
+              player = Bukkit.getOfflinePlayer(iterator.next());
+
+				 team.addPlayer(player);
+
+              if (score.length() > 32){
                       team.setSuffix(iterator.next());
-              
+              }
+
+			 }
             o.getScore(player).setScore(Scores.get(score));
               
 
 		 }
+	}
+	
+	
+	
+	@SuppressWarnings("deprecation")
+	public void refreshScore(int i, String score, long delay, long period){
+		BukkitRunnable refresh = new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+			     Team team = scoreboard.getTeam("Scores" + i);
+	               OfflinePlayer player = Bukkit.getOfflinePlayer(score);
+		          
+				 if (score.length() > 16){
+					 
+	              Iterator<String> iterator = Splitter.fixedLength(16).split(score).iterator();
+	              team.setPrefix(iterator.next());
+	              player = Bukkit.getOfflinePlayer(iterator.next());
+
+					 team.addPlayer(player);
+
+	              if (score.length() > 32){
+	                      team.setSuffix(iterator.next());
+	              }
+
+				 }}	             
+
+		};
+         refresh.runTaskTimer(Main.plugin, delay, period);
+		refreshes.add(refresh);
+        
+	}
+	
+	public void sendScoreboad(){
+		p.setScoreboard(scoreboard);
+	}
+	
+	public void clearScoreboard(){
+		for (BukkitRunnable run : refreshes){
+			run.cancel();
+		}
+		p.setScoreboard(null);
 	}
 	
 	

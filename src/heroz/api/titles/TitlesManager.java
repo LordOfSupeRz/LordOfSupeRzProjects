@@ -1,6 +1,8 @@
 package heroz.api.titles;
 
 import heroz.api.main.Main;
+import heroz.api.scoreboard.Scoreboard;
+import heroz.api.scoreboard.ScoreboardManager;
 
 import java.util.List;
 
@@ -30,6 +32,21 @@ public class TitlesManager implements Listener{
 		sendTab(e.getPlayer());
 		sendTitle(e.getPlayer());
 		sendSubTitle(e.getPlayer());
+		
+		
+		Scoreboard board = ScoreboardManager.getScoreboard(e.getPlayer());
+		board.setTitle("&c&lTestBoard");
+		board.addScore("&eWelcome in test scoreboard", 1);
+		board.addScore("&r", 2);
+		board.addScore("&bmade by: LordOfSupeRz / Developer", 3);
+		board.addScore("&r&r", 4);
+		board.addScore("&d&lEnjoy", 5);
+		board.addScore("&r&r&r", 6);
+		board.addScore("&dShofo sweet scoreboard 5orafy :) byshl 3leekm ktheer", 7);
+		board.addScore("&e 4a ysm7 ank t9'eef 48 7rf", 8);
+
+		board.ScoreBuilder();
+		board.sendScoreboad();
 	}
 
 

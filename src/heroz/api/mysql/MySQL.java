@@ -127,6 +127,7 @@ private HashMap<String, String> MySQLTableRows =  new HashMap<>();
 			  rows += str +", ";
 
 		 }
+		 x++;
 	 }
 	return rows;
  }
@@ -142,6 +143,8 @@ private HashMap<String, String> MySQLTableRows =  new HashMap<>();
 			  values += "'" +MySQLTableRows.get(str) + "', ";
 
 		 }
+		 x++;
+
 	 }
 	return values;
  }

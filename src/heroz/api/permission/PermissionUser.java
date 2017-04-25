@@ -18,10 +18,10 @@ public class PermissionUser {
 	
 	
 	private Player player;
-	public File PermissionUserFile = new File("plugins/SupeRzAPI/PermissionManager", "Users.yml");
+	public File PermissionUserFile = new File("plugins/HerozAPI/PermissionManager", "Users.yml");
 	public YamlConfiguration permissionUserConfiguration = YamlConfiguration.loadConfiguration(PermissionUserFile);
 	
-	public File PermissionGroupFile = new File("plugins/SupeRzAPI/PermissionManager", "Groups.yml");
+	public File PermissionGroupFile = new File("plugins/HerozAPI/PermissionManager", "Groups.yml");
 	public YamlConfiguration permissionGroupConfiguration = YamlConfiguration.loadConfiguration(PermissionGroupFile);
 	
 	public String ConfigurationPath = "";
