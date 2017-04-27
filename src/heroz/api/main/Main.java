@@ -5,7 +5,21 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import heroz.api.GameRecorder.CommandReplay;
+import heroz.api.GameRecorder.FileManager;
+import heroz.api.GameRecorder.RePlayer;
+import heroz.api.GameRecorder.Recorder;
+import heroz.api.GameRecorder.ReplayManager;
 import heroz.api.Translate.TransManager;
+import heroz.api.Translate.TranslateAPI;
 import heroz.api.achievment.AchievmentManager;
 import heroz.api.enitities.EntityCommands;
 import heroz.api.enitities.EntityTypes;
@@ -20,13 +34,10 @@ import heroz.api.scoreboard.ScoreboardManager;
 import heroz.api.titles.TitlesManager;
 import net.minecraft.server.v1_7_R4.EntityVillager;
 
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.java.JavaPlugin;
-
 public class Main extends JavaPlugin{
  
+	
+	public static ReplayManager replaymanager;
 	public static Main plugin;
 	public static boolean MainServer = false;
 	public static String Prefix = "";
@@ -34,6 +45,10 @@ public class Main extends JavaPlugin{
 	public static MySQL mysql;
 	
 	public void onEnable(){
+        replaymanager.fileSystem = new FileManager();
+        replaymanager.recorder = new Recorder(this);
+        this.getCommand("replay").setExecutor((CommandExecutor)new CommandReplay(this));
+        replaymanager.start();
 		getConfig().options().copyDefaults(true);
 		saveDefaultConfig();
 		saveConfig();
@@ -52,6 +67,15 @@ public class Main extends JavaPlugin{
        EntityTypes.registerEntity("Villager", 120, EntityVillager.class, VillagerEntity.class);
       mysql.createTable("");
 
+	}
+	
+	public void onDisable(){
+        if (ReplayManager.recorder.isRecording()) {
+            ReplayManager.stop();
+        }
+        for (final RePlayer r : ReplayManager.replayers) {
+            r.stopWithoutTask();
+        }
 	}
 	
 	public static String ColorString(String i){

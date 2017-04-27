@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 public class TranslateAPI {
 
 	
-	public void Translate(Player p , String msg){
+	public static String Translate(Player p , String msg){
 		if(TransManager.English(p.getName())){
 			msg = msg;
 		}
@@ -17,6 +17,7 @@ public class TranslateAPI {
 		else if(TransManager.Arabic(p.getName())){
 		TransUtil.getTranslation(msg, "ar");
 		}
+		return msg;
 				
 			
 		
