@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import heroz.api.main.Main;
-import heroz.api.permission.PermissionManager;
+
 
 
 public class AchievmentUtil {
@@ -38,7 +38,7 @@ public class AchievmentUtil {
 	}
 	
 	public static boolean playerExists(UUID uuid) {
-		ResultSet rs = Main.mysql.query("SELECT * FROM " + PermissionManager.permissionConfiguration.getString("table")  +" WHERE UUID='" + uuid.toString() + "'");
+		ResultSet rs = Main.mysql.query("SELECT * FROM PlayerData WHERE UUID='" + uuid.toString() + "'");
 		try {
 			if (rs.next()) {
 				return true;
@@ -50,7 +50,7 @@ public class AchievmentUtil {
 	}
 
 	public static boolean playerExists(String playername) {
-		ResultSet rs = Main.mysql.query("SELECT * FROM " + PermissionManager.permissionConfiguration.getString("table") + " WHERE Playername='" + playername + "'");
+		ResultSet rs = Main.mysql.query("SELECT * FROM PlayerData WHERE Playername='" + playername + "'");
 		try {
 			if (rs.next()) {
 				return true;
@@ -69,7 +69,7 @@ public class AchievmentUtil {
 	}
 
 	public static String getUUID(String playername) {
-		ResultSet rs = Main.mysql.query("SELECT * FROM " + PermissionManager.permissionConfiguration.getString("table")  +" WHERE Playername='" + playername + "'");
+		ResultSet rs = Main.mysql.query("SELECT * FROM PlayerData WHERE Playername='" + playername + "'");
 		try {
 			if (rs.next()) {
 				return rs.getString("UUID");

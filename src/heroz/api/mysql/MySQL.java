@@ -16,13 +16,13 @@ public class MySQL
   private String DATABASE = "";
   private String USER = "";
   private String PASSWORD = "";
-  private Integer Port = 0;
+  private Integer Port = 3306;
   private String tablename = "";
   private String MainParm = "";
 private HashMap<String, String> MySQLTableRows =  new HashMap<>();
  
 
-  private Connection con;
+  public Connection con;
   
   public MySQL(String host, Integer port, String database, String user, String password)
   {
@@ -68,9 +68,9 @@ private HashMap<String, String> MySQLTableRows =  new HashMap<>();
   {
     try
     {
-      Statement st = this.con.createStatement();
-      st.executeUpdate(qry);
-      st.close();
+     
+      con.createStatement().executeUpdate(qry);
+      con.createStatement().close();
     }
     catch (SQLException e)
     {

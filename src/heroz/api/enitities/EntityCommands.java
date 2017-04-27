@@ -34,7 +34,7 @@ public class EntityCommands {
 				        c.a(entity, -((Player) sender).getLocation().getYaw(), -((Player) sender).getLocation().getPitch());
 				        c.a();
 				 }else{
-						sender.sendMessage(Main.Prefix + Main.ColorString("&c/money set <type> <player> <value>"));
+						sender.sendMessage(Main.Prefix + Main.ColorString("&c/nms <type> <name>"));
 
 				 
 				 }}

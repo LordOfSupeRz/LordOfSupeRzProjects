@@ -45,9 +45,11 @@ public class PermissionManager{
         String user  = permissionConfiguration.getString("MySQL.user");
         String password = permissionConfiguration.getString("MySQL.password");
 		PermissionDataBase = new MySQL(host, port, database, user, password);
-		PermissionDataBase.setTablename("SuperzPermissionManager");
-		PermissionDataBase.setMainParm("UUID");
-		PermissionDataBase.createTable("UUID varchar(64), RANK varchar(10), NAME varchar(64)");
+		//PermissionDataBase.setTablename("SuperzPermissionManager");
+		//PermissionDataBase.setMainParm("UUID");
+	//	PermissionDataBase.createTable("UUID varchar(64), RANK varchar(10), NAME varchar(64)");
+		PermissionDataBase.update("CREATE TABLE IF NOT EXISTS SuperzPermissionManager(UUID varchar(64), RANK varchar(10), NAME varchar(64));");
+
 		
 	}
 		

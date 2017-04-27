@@ -1,17 +1,12 @@
 package heroz.api.achievment;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
+import java.io.File;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
-
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
+import org.bukkit.configuration.file.YamlConfiguration;
 import heroz.api.main.Main;
-import heroz.api.permission.PermissionManager;
+import heroz.api.mysql.MySQL;
 
 
 public class AchievmentManager {
@@ -21,6 +16,25 @@ public class AchievmentManager {
 	private List<Achievement> achievements;
 
 
+	
+	public static MySQL AchievementDataBase;
+	
+	public static File AchievementFile = new File("plugins/HerozAPI/AchievementManager", "config.yml");
+	public static YamlConfiguration AchievementConfiguration = YamlConfiguration.loadConfiguration(AchievementFile);
+
+	
+	
+	public static void EnableAchievmentAPI(){
+
+
+
+		 setupMySQL();
+		 
+		 Bukkit.getPluginManager().registerEvents(new AchievmentListener(), Main.plugin);
+		 
+		}
+	
+	
 	public AchievmentManager(UUID uuid) {
 		this.uuid = uuid;
 		
@@ -33,7 +47,7 @@ public class AchievmentManager {
 
 	public void setAchievements(List<Achievement> achievements) {
 		this.achievements = achievements;
-		Main.mysql.update("UPDATE " + PermissionManager.permissionConfiguration.getString("table") + " SET Achievements='" + AchievmentUtil.achievementListToString(this.achievements) + "' WHERE UUID='" + this.uuid.toString() + "'");
+		Main.mysql.update("UPDATE PlayerData SET Achievements='" + AchievmentUtil.achievementListToString(this.achievements) + "' WHERE UUID='" + this.uuid.toString() + "'");
 	}
 
 	
@@ -62,5 +76,21 @@ public class AchievmentManager {
 	}
 
 
+	
+	public static void setupMySQL(){
+		String host = AchievementConfiguration.getString("MySQL.host");
+		Integer port = AchievementConfiguration.getInt("MySQL.port");
+        String database = AchievementConfiguration.getString("MySQL.database");
+        String user  = AchievementConfiguration.getString("MySQL.user");
+        String password = AchievementConfiguration.getString("MySQL.password");
+        AchievementDataBase = new MySQL(host, port, database, user, password);
+		AchievementDataBase.setTablename("PlayerData");
+		AchievementDataBase.setMainParm("UUID");
+		AchievementDataBase.createTable("UUID varchar(64), Playername varchar(64), Achievements varchar(64)");
+	}
+	
+	
+	
+	
 
 }

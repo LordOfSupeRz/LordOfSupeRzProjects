@@ -5,11 +5,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import heroz.api.Translate.TransManager;
+import heroz.api.achievment.AchievmentManager;
 import heroz.api.enitities.EntityCommands;
 import heroz.api.enitities.EntityTypes;
 import heroz.api.enitities.VillagerEntity;
+import heroz.api.gameid.GameIDManager;
 import heroz.api.money.MoneyCommands;
 import heroz.api.money.MoneyManager;
+import heroz.api.mysql.MySQL;
 import heroz.api.permission.PermissionCommand;
 import heroz.api.permission.PermissionManager;
 import heroz.api.scoreboard.ScoreboardManager;
@@ -27,6 +31,7 @@ public class Main extends JavaPlugin{
 	public static boolean MainServer = false;
 	public static String Prefix = "";
 	public static String OpPassword = "";
+	public static MySQL mysql;
 	
 	public void onEnable(){
 		getConfig().options().copyDefaults(true);
@@ -41,7 +46,11 @@ public class Main extends JavaPlugin{
 	    PermissionManager.EnablePermissionAPI();
 	    MoneyManager.EnableMoneyAPI();
 	    ScoreboardManager.EnableScoreboardAPI();
+	    AchievmentManager.EnableAchievmentAPI();
+	    GameIDManager.EnableIdAPI();
+	    TransManager.EnableTranslateAPI();
        EntityTypes.registerEntity("Villager", 120, EntityVillager.class, VillagerEntity.class);
+      mysql.createTable("");
 
 	}
 	
@@ -64,7 +73,80 @@ public class Main extends JavaPlugin{
 	public void setupFiles(){
 		new File("plugins/HerozAPI/PermissionManager").mkdirs();
 		new File("plugins/HerozAPI/MoneyManager").mkdirs();
+		new File("plugins/HerozAPI/AchievementManager").mkdirs();
+		new File("plugins/HerozAPI/GameIDManager").mkdirs();
+		new File("plugins/HerozAPI/Translator").mkdirs();
 
+		
+		if (!(GameIDManager.idFile.exists())){
+			try {
+				GameIDManager.idFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		if (GameIDManager.idConfiguration.get("MySQL") == null){
+			GameIDManager.idConfiguration.set("MySQL.host", "heroz-pvp.net");
+			GameIDManager.idConfiguration.set("MySQL.port", "3306");
+			GameIDManager.idConfiguration.set("MySQL.database", "HerozAPI");
+			GameIDManager.idConfiguration.set("MySQL.user", "root");
+			GameIDManager.idConfiguration.set("MySQL.password", "*******");
+		try {
+			GameIDManager.idConfiguration.save(GameIDManager.idFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		}
+		
+		
+		if (!(TransManager.TransFile.exists())){
+			try {
+				TransManager.TransFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		if (TransManager.TransConfiguration.get("MySQL") == null){
+			TransManager.TransConfiguration.set("MySQL.host", "heroz-pvp.net");
+			TransManager.TransConfiguration.set("MySQL.port", "3306");
+			TransManager.TransConfiguration.set("MySQL.database", "HerozAPI");
+			TransManager.TransConfiguration.set("MySQL.user", "root");
+			TransManager.TransConfiguration.set("MySQL.password", "*******");
+		try {
+			TransManager.TransConfiguration.save(TransManager.TransFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		}
+		
+		
+		
+		if (!(AchievmentManager.AchievementFile.exists())){
+			try {
+				AchievmentManager.AchievementFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		if (AchievmentManager.AchievementConfiguration.get("MySQL") == null){
+			AchievmentManager.AchievementConfiguration.set("MySQL.host", "heroz-pvp.net");
+			AchievmentManager.AchievementConfiguration.set("MySQL.port", "3306");
+			AchievmentManager.AchievementConfiguration.set("MySQL.database", "HerozAPI");
+			AchievmentManager.AchievementConfiguration.set("MySQL.user", "root");
+			AchievmentManager.AchievementConfiguration.set("MySQL.password", "*******");
+		try {
+			AchievmentManager.AchievementConfiguration.save(AchievmentManager.AchievementFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		}
+		
 		if (!(PermissionManager.PermissionFile.exists())){
 			try {
 				PermissionManager.PermissionFile.createNewFile();
@@ -108,12 +190,15 @@ public class Main extends JavaPlugin{
 		}
 
 		}
+		
+		
 		if (PermissionManager.permissionConfiguration.get("MySQL") == null){
 			PermissionManager.permissionConfiguration.set("MySQL.host", "heroz-pvp.net");
 			PermissionManager.permissionConfiguration.set("MySQL.port", "3306");
 			PermissionManager.permissionConfiguration.set("MySQL.database", "HerozAPI");
 			PermissionManager.permissionConfiguration.set("MySQL.user", "root");
 			PermissionManager.permissionConfiguration.set("MySQL.password", "*******");
+		
 			try {
 				PermissionManager.permissionConfiguration.save(PermissionManager.PermissionFile);
 			} catch (IOException e) {
