@@ -34,6 +34,8 @@ import net.herozpvp.api.scoreboard.ScoreboardManager;
 import net.herozpvp.api.titles.TitlesManager;
 import net.minecraft.server.v1_7_R4.EntityVillager;
 
+import static net.herozpvp.api.until.Chat.color; // import color method
+
 public class Main extends JavaPlugin{
  
 	
@@ -54,7 +56,7 @@ public class Main extends JavaPlugin{
 		saveConfig();
 		plugin = this;
 		MainServer = getConfig().getBoolean("Main-Server");
-		Prefix = ColorString(plugin.getConfig().getString("Prefix"));
+		Prefix = color(plugin.getConfig().getString("Prefix"));
 		OpPassword = plugin.getConfig().getString("OpPassword");
 		setupFiles();
 		TitlesManager.EnableTitleAPI();
@@ -76,10 +78,6 @@ public class Main extends JavaPlugin{
         for (final RePlayer r : ReplayManager.replayers) {
             r.stopWithoutTask();
         }
-	}
-	
-	public static String ColorString(String i){
-		return ChatColor.translateAlternateColorCodes('&', i);
 	}
 	
 	

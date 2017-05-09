@@ -48,8 +48,9 @@ public class Chat {
         connection.sendPacket(length);
     }
     
-    private static String color(String format){
-        return ChatColor.translateAlternateColorCodes('&', format);
+    public static String color(String format, Object... args){
+        return ChatColor.translateAlternateColorCodes('&', 
+                String.format(format, args));
     }
 
     public static void sendToSender(CommandSender sender, String message) {

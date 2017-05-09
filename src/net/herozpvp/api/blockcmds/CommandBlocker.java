@@ -9,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
+import static net.herozpvp.api.until.Chat.color; // import color method
+
 public class CommandBlocker implements Listener {
 	
 	
@@ -22,7 +24,7 @@ public class CommandBlocker implements Listener {
 	        ((!p.hasPermission("heroz.*") || (!p.hasPermission("heroz.help") ))))
 	      {
 	        event.setCancelled(true);
-	        p.sendMessage(Main.Prefix + Main.ColorString("&cYou can't type this command."));
+	        p.sendMessage(Main.Prefix + color("&cYou can't type this command."));
 	      }
 	    }
 	  }
