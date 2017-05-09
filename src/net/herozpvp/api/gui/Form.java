@@ -4,7 +4,7 @@ import static net.herozpvp.api.until.Chat.color;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 
-public class Form extends Component{
+public class Form extends ComponentGUI{
 
     private final Inventory inv;
     
